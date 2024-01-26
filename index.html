@@ -4,7 +4,15 @@
     <head>
         <title>Lab 1</title>
         <style>
-            /* Add any additional styling here */
+            body{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                min-height: 100vh; /* Ensure the body covers the entire viewport height */
+                margin: 0; /* Remove default margin */
+
+            }
             canvas {
                 border: 2px solid #000;
             }
@@ -13,35 +21,52 @@
                 padding-right: 30px;
             }
             .header h3 {
-                display: inline; /* or display: inline-block; */
-                margin: 0; /* To remove default margins */
+                display: inline;
+                margin: 0; 
                 font-weight: bold;
+            }
+            .button-container {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            }
+
+            .button-container button {
+            display: inline-block;
+            margin: 5px; 
             }
         </style>
     </head>
 
     <body>
-        <div class="header">
-            <h2>Web Audio Keyboard</h2>
-          
-        </div>
-        <div class="header">
-            <h3>Score: </h3><h3 id="gameScore">0</h3>
-        </div>
-        <br>
-        <button id="startStopButton">Start Game</button>
-        <button id="restartButton">Restart Game</button>
-        <br><br>
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <script src="game.js"></script>
-        <div>
-            <form id="wave_selection">
-                <input type="radio" id="sine" value="sine" name="wave" checked="checked">
-                <label for="sine">sine</label>
-                <input type="radio" id="sawtooth" name="wave" value="sawtooth">
-                <label for="sawtooth">sawtooth</label>
-            </form>
-        </div>
+        
+            <div class="header">
+                <h2>Web Audio Keyboard</h2>
+              
+            </div>
+            <div class="header">
+                <h3>Score: </h3><h3 id="gameScore">0</h3>
+            </div>
+            
+            <div class="button-container">
+                <button id="startStopButton">Start Game</button>
+                 <button id="restartButton">Restart Game</button>
+            </div>
+            
+   
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <script src="game.js"></script>
+            <div>
+                <form id="wave_selection">
+                    <input type="radio" id="sine" value="sine" name="wave" checked="checked">
+                    <label for="sine">sine</label>
+                    <input type="radio" id="sawtooth" name="wave" value="sawtooth">
+                    <label for="sawtooth">sawtooth</label>
+                </form>
+            </div>
+
+      
+        
     </body>
 
     <script src="main.js"></script>
