@@ -2,6 +2,32 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// Constants
+const numColumns = 5;  // Number of columns
+const columnWidthPercentage = 0.2; // Adjust the width percentage of each column 
+const columnHeight = canvas.height;
+
+// Function to draw evenly spaced columns
+function drawBackgroundColumns() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.strokeStyle = '#fff';
+
+  for (let i = 0; i < numColumns; i++) {
+    const columnWidth = canvas.width * columnWidthPercentage * 0.65;
+    const x = (canvas.width - columnWidth * numColumns) / 2 + i * columnWidth;
+
+    // Draw column
+    ctx.fillStyle = '#000'; // Set a color for the columns
+    ctx.fillRect(x, 0, columnWidth, columnHeight);
+
+    // Draw column border
+    ctx.strokeRect(x, 0, columnWidth, columnHeight);
+  }
+}
+
+// Draw background columns
+drawBackgroundColumns();
+
 // Define an object representing the moving element
 const movingElement = {
     x: 50, // initial x position
@@ -31,6 +57,9 @@ function draw() {
 
     // Clear the canvas
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw background columns
+    drawBackgroundColumns();
 
     // Draw the moving element
     ctx.fillStyle = '#f59da1'; // Blue color
