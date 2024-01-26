@@ -18,24 +18,28 @@
                 display: block;
                 margin: 20px auto;
             }
-            .header{
-                display: inline-block;
-                padding-right: 30px;
-            }
-            .header h3 {
+            .mode{
+                margin: 10px;
+            } 
+            .header h3, select, label {
                 display: inline;
                 margin: 0; 
                 font-weight: bold;
             }
             .button-container {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
+                text-align: center;
+                margin-top: 10px;
+                margin-bottom: 10px;
             }
 
             .button-container button {
-            display: inline-block;
-            margin: 5px; 
+                display: inline-block;
+                margin: 5px; 
+                border-radius: 5px;
+                border: 2px black; 
+                padding: 10px;
+                background-color: #000;
+                color: azure;
             }
         </style>
     </head>
@@ -50,10 +54,21 @@
                 <h3>Score: </h3><h3 id="gameScore">0</h3>
             </div>
             
+            <div class="mode">
+                <label for="mode">Game Mode:</label>
+                <select name="mode" id="mode">
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+                </select>
+            </div>
+            
             <div class="button-container">
                 <button id="startStopButton">Start Game</button>
                  <button id="restartButton">Restart Game</button>
             </div>
+
+            
             
    
             <canvas id="gameCanvas" width="800" height="400"></canvas>

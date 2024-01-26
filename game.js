@@ -2,13 +2,16 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+//different modes
+gameSpeeds = {'easy':2, 'medium':4, 'hard':6}
+
 // Define an object representing the moving element
 const movingElement = {
     x: 50, // initial x position
     y: 0,  // initial y position
     width: 30,
     height: 30,
-    speed: 2, // pixels per frame
+    speed: gameSpeeds['easy'], // pixels per frame
     column: 0 // Initial column
 };
 
@@ -113,25 +116,28 @@ function draw() {
 
     // Check if the element has reached the bottom of the canvas
     if (movingElement.y > canvas.height) {
-        // Reset its position to the top
-        movingElement.y = 0;
-         cancelAnimationFrame(animationId);
-
-        //move to next column
-        movingElement.column = (movingElement.column + 1) % numColumns;
-
+  
         //subtract 2 points for each missed note
         let gameScore = document.getElementById('gameScore');
         gameScore.innerText = Number(gameScore.innerText) + -2;
        
-
-         // Move to the next note in the song
-         songIndex = (songIndex + 1) % song.length;
-
-          // Delay before starting the next animation
-        setTimeout(() => {
-            animationId = requestAnimationFrame(draw);
-        }, 100);
+          // Stop the animation temporarily
+          isAnimating = false;
+          cancelAnimationFrame(animationId);
+ 
+          setTimeout(() => {
+             isAnimating = true;
+             // Reset its position to the top
+             movingElement.y = 0;
+              //move to next column
+             movingElement.column = (movingElement.column + 1) % numColumns;
+        
+             songIndex = (songIndex + 1) % song.length;
+ 
+             // Request the next animation frame
+             animationId = requestAnimationFrame(draw);
+             document.getElementById('startStopButton').textContent = 'Stop Game';
+          }, 100);
     }
 
     // Request the next animation frame
@@ -178,6 +184,14 @@ function restartGame(){
      movingElement.column = 0;
 
 
+}
+
+document.getElementById('mode').addEventListener('change',changeGameMode);
+//add event listener to the game mode
+function changeGameMode(){
+    let gameModeValue = document.getElementById('mode').value
+    //update the mode
+    movingElement.speed = gameSpeeds[gameModeValue];
 }
 
 // Add click event listener to the button
