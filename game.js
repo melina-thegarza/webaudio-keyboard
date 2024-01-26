@@ -2,6 +2,16 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
+// Define an object representing the moving element
+const movingElement = {
+    x: 50, // initial x position
+    y: 0,  // initial y position
+    width: 30,
+    height: 30,
+    speed: 2, // pixels per frame
+    column: 0 // Initial column
+};
+
 // Constants
 const numColumns = 5;  // Number of columns
 const columnWidthPercentage = 0.2; // Adjust the width percentage of each column 
@@ -17,26 +27,40 @@ function drawBackgroundColumns() {
     const x = (canvas.width - columnWidth * numColumns) / 2 + i * columnWidth;
 
     // Draw column
-    ctx.fillStyle = '#000'; // Set a color for the columns
+     if (i === (movingElement.column) % numColumns) {
+        // //make a rainbow
+        switch (i) {
+            case 0:
+                ctx.fillStyle = '#e8434b';
+                break;
+            case 1:
+                ctx.fillStyle = '#e88843';
+                break;
+            case 2:
+                ctx.fillStyle = '#f0e051';
+                break;
+            case 3:
+                ctx.fillStyle = '#39db6a';
+                break;
+            case 4:
+                ctx.fillStyle = '#3982db';
+                break;      
+
+        }
+      } else {
+        ctx.fillStyle = '#000'; // Default color for other columns
+      }
     ctx.fillRect(x, 0, columnWidth, columnHeight);
 
     // Draw column border
     ctx.strokeRect(x, 0, columnWidth, columnHeight);
   }
+   
 }
 
 // Draw background columns
 drawBackgroundColumns();
 
-// Define an object representing the moving element
-const movingElement = {
-    x: 50, // initial x position
-    y: 0,  // initial y position
-    width: 30,
-    height: 30,
-    speed: 2, // pixels per frame
-    column: 0 // Initial column
-};
 
 let animationId;
 let isAnimating = false;
@@ -66,9 +90,17 @@ function draw() {
     const columnWidth = canvas.width * columnWidthPercentage * 0.65;
     const columnX = (canvas.width - columnWidth * numColumns) / 2 + movingElement.column * columnWidth;
     const movingElementX = columnX + (columnWidth - movingElement.width) / 2;
+    
+    
+    ctx.fillStyle = '#000';
 
-    ctx.fillStyle = '#f59da1';
+    // Draw the front face of the cube
     ctx.fillRect(movingElementX, movingElement.y, movingElement.width, movingElement.height);
+    // Draw the top face of the cube with a fixed height
+    const topFaceHeight = 5; // Adjust this value for the desired detachment
+    ctx.fillRect(movingElementX, movingElement.y - topFaceHeight, movingElement.width, topFaceHeight);
+    // Draw the side face of the cube
+    ctx.fillRect(movingElementX + movingElement.width, movingElement.y, 5, movingElement.height);
 
     
     // Add text inside the rectangle
@@ -83,6 +115,7 @@ function draw() {
     if (movingElement.y > canvas.height) {
         // Reset its position to the top
         movingElement.y = 0;
+         cancelAnimationFrame(animationId);
 
         //move to next column
         movingElement.column = (movingElement.column + 1) % numColumns;
