@@ -120,6 +120,15 @@ function draw() {
         //subtract 2 points for each missed note
         let gameScore = document.getElementById('gameScore');
         gameScore.innerText = Number(gameScore.innerText) + -2;
+
+        let reaction = document.getElementById('reaction');
+        reaction.innerText = "-2";
+        reaction.style.color = 'orange';
+
+        setTimeout(function() {
+            reaction.innerText = ""; // Reset the text content
+            reaction.style.color = ''; // Reset the text color (to default or empty)
+          }, 500);
        
           // Stop the animation temporarily
           isAnimating = false;
@@ -206,6 +215,14 @@ document.addEventListener('keydown', function(event) {
          let gameScore = document.getElementById('gameScore');
          gameScore.innerText = Number(gameScore.innerText) + 1;
 
+         let reaction = document.getElementById('reaction');
+         reaction.innerText = "+1";
+         reaction.style.color = 'green';
+         setTimeout(function() {
+            reaction.innerText = ""; // Reset the text content
+            reaction.style.color = ''; // Reset the text color (to default or empty)
+          }, 500);
+
          // Stop the animation temporarily
          isAnimating = false;
          cancelAnimationFrame(animationId);
@@ -222,5 +239,20 @@ document.addEventListener('keydown', function(event) {
             animationId = requestAnimationFrame(draw);
             document.getElementById('startStopButton').textContent = 'Stop Game';
          }, 100);
+    }
+    else if(isAnimating){
+          //add to game score
+          let gameScore = document.getElementById('gameScore');
+          gameScore.innerText = Number(gameScore.innerText) - 3;
+
+          let reaction = document.getElementById('reaction');
+          reaction.innerText = "-3";
+          reaction.style.color = 'red';
+
+          setTimeout(function() {
+            reaction.innerText = ""; // Reset the text content
+            reaction.style.color = ''; // Reset the text color (to default or empty)
+          }, 500);
+
     }
 });

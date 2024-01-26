@@ -18,13 +18,33 @@
                 display: block;
                 margin: 20px auto;
             }
-            .mode{
-                margin: 10px;
-            } 
-            .header h3, select, label {
+            .mode {
+            margin: 10px;
+            margin-top: 20px;
+            }
+
+            label{
+                font-size: 16px;
+                font-weight: bold;
+            }
+
+            select {
+                padding: 4px;
+                font-size: 14px;
+                border-radius: 3px;
+                background-color: #000;
+                color:azure;
+                text-align: center;
+            }
+
+            .header h3 {
                 display: inline;
                 margin: 0; 
                 font-weight: bold;
+            }
+            #reaction{
+                padding-left: 5px;
+                font-weight: lighter;
             }
             .button-container {
                 text-align: center;
@@ -36,11 +56,11 @@
                 display: inline-block;
                 margin: 5px; 
                 border-radius: 5px;
-                border: 2px black; 
                 padding: 10px;
                 background-color: #000;
                 color: azure;
             }
+    
         </style>
     </head>
 
@@ -51,7 +71,7 @@
               
             </div>
             <div class="header">
-                <h3>Score: </h3><h3 id="gameScore">0</h3>
+                <h3>Score: </h3><h3 id="gameScore">0</h3> <h3 id="reaction"></h3>
             </div>
             
             <div class="mode">
@@ -82,7 +102,6 @@
                 </form>
             </div>
 
-      
         
     </body>
 
