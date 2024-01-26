@@ -69,11 +69,17 @@ let animationId;
 let isAnimating = false;
 
 //ADD MORE SONGS, 2 more, increasing in difficulty
-//Mary had a Little Lamb
-let song = ['C', 'X', 'Z', 'X', 'C', 'C', 'C',
+//Mary had a Little Lamb + Happy Birthday
+let song = [['C', 'X', 'Z', 'X', 'C', 'C', 'C',
      'X', 'X', 'X', 'C', 'C', 'C',
     'C', 'X', 'Z', 'X', 'C', 'C', 'C',
-    'C', 'X', 'X', 'C', 'X', 'Z'];
+    'C', 'X', 'X', 'C', 'X', 'Z'], 
+
+    ['B', 'B', 'N', 'B', 'Q', 'M',
+    'B', 'B', 'N', 'B', 'W', 'Q',
+    'B', 'B', 'T', 'E', 'Q', 'M', 'N', 
+    'R', 'R', 'E', 'Q', 'W', 'Q']];
+let songOption = 0;
 let songIndex = 0;
 let widthMax = 720;
 
@@ -109,7 +115,7 @@ function draw() {
     // Add text inside the rectangle
     ctx.fillStyle = '#FFF'; // White color
     ctx.font = '24px Arial';
-    ctx.fillText(song[songIndex],  movingElementX + 5, movingElement.y + 20);
+    ctx.fillText(song[songOption][songIndex],  movingElementX + 5, movingElement.y + 20);
 
     // Update the position for the next frame
     movingElement.y += movingElement.speed;
@@ -141,7 +147,7 @@ function draw() {
               //move to next column
              movingElement.column = (movingElement.column + 1) % numColumns;
         
-             songIndex = (songIndex + 1) % song.length;
+             songIndex = (songIndex + 1) % song[songOption].length;
  
              // Request the next animation frame
              animationId = requestAnimationFrame(draw);
@@ -195,12 +201,21 @@ function restartGame(){
 
 }
 
-document.getElementById('mode').addEventListener('change',changeGameMode);
 //add event listener to the game mode
+document.getElementById('mode').addEventListener('change',changeGameMode);
 function changeGameMode(){
     let gameModeValue = document.getElementById('mode').value
     //update the mode
     movingElement.speed = gameSpeeds[gameModeValue];
+}
+
+//add event listener to the song selection
+document.getElementById('song').addEventListener('change',changeSong);
+function changeSong(){
+    //update the song
+    songOption = document.getElementById('song').value;
+    //restart from beginning
+    songIndex = 0;
 }
 
 // Add click event listener to the button
@@ -209,7 +224,8 @@ document.getElementById('startStopButton').addEventListener('click', toggleAnima
 // Add keydown event listener, detect if we played the correct note
 document.addEventListener('keydown', function(event) {
     //correct note played
-    if (event.key === song[songIndex].toLowerCase() && isAnimating) {
+    console.log(songOption)
+    if (event.key === song[songOption][songIndex].toLowerCase() && isAnimating) {
 
          //add to game score
          let gameScore = document.getElementById('gameScore');
@@ -233,7 +249,7 @@ document.addEventListener('keydown', function(event) {
              //move to next column
             movingElement.column = (movingElement.column + 1) % numColumns;
        
-            songIndex = (songIndex + 1) % song.length;
+            songIndex = (songIndex + 1) % song[songOption].length;
 
             // Request the next animation frame
             animationId = requestAnimationFrame(draw);

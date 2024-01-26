@@ -60,6 +60,9 @@
                 background-color: #000;
                 color: azure;
             }
+            .game-settings div{
+                display: inline-block;
+            }
     
         </style>
     </head>
@@ -74,14 +77,27 @@
                 <h3>Score: </h3><h3 id="gameScore">0</h3> <h3 id="reaction"></h3>
             </div>
             
-            <div class="mode">
-                <label for="mode">Game Mode:</label>
-                <select name="mode" id="mode">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-                </select>
+            <div class="game-settings">
+
+                <div>
+                    <label for="mode">Select Song:</label>
+                    <select name="song" id="song">
+                    <option value="0">Mary Had a Little Lamb</option>
+                    <option value="1">Happy Birthday!</option>
+                    
+                    </select>
+                </div>
+                <div class="mode">
+                    <label for="mode">Game Mode:</label>
+                    <select name="mode" id="mode">
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                    </select>
+                </div>
+
             </div>
+            
             
             <div class="button-container">
                 <button id="startStopButton">Start Game</button>
